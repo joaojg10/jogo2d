@@ -22,10 +22,17 @@ public class PlayerCtrl : MonoBehaviour {
 
 	bool isJumping = false;
 
+	public Transform feet;
+
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
+	}
+
+	void OnDrawGizmos(){
+		Gizmos.DrawWireCube(feet.position, new Vector3( 0.5f, 0.1f, 0f));
+
 	}
 	
 	void Update () {

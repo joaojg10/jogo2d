@@ -48,6 +48,9 @@ public class PlayerCtrl : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (transform.position.y <GM.instance.yMinLive){
+			GM.instance.KillPlayer();
+		}
 		isGrounded = Physics2D.OverlapBox (new Vector2 (feet.position.x, feet.position.y), new Vector2 (feetWidth, feetHeigth), 360.0f, whatIsGround);
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 = esquerda, 1 = direita,
 		float horizontalPlayerSpeed = horizontalSpeed * horizontalInput;

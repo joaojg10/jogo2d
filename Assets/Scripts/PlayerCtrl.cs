@@ -32,6 +32,10 @@ public class PlayerCtrl : MonoBehaviour {
 
 	bool isJumping = false;
 
+	bool canDoublejump = false;
+
+	public float delayForDoubleJump = 0.2f;
+
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
@@ -95,8 +99,20 @@ public class PlayerCtrl : MonoBehaviour {
 			isJumping = true;
 			rb.AddForce (new Vector2 (0f, jumpSpeed));
 			anim.SetInteger ("State", 1);
+			Invoke("EnableDoubleJump", delayForDoubleJump);
+		}
+		if (canDoublejump && !isGrounded){
+			isJumping = true;
+			rb.AddForce(new Vector2(0f, jumpSpeed));
+			anim.SetInteger("State", 1);
+			canDoublejump = false;
 		}
 	}
+
+	void EnableDoubleJump(){
+		canDoublejump = true;
+	}
+
 
 	void OnCollisionEnter2D(Collision2D other){
 		if(other.gameObject.layer == LayerMask.NameToLayer("Ground")){
